@@ -5,7 +5,10 @@ import type { AirportResponse, AirportResult, FlightResponse } from "../types";
 
 const clientV1 = axios.create({
   baseURL: import.meta.env.RapidAPI_BaseURL,
-  params: import.meta.env.RapidAPI_KEY,
+  headers: {
+    "x-rapidapi-key": import.meta.env.RapidAPI_KEY,
+    "x-rapidapi-host": import.meta.env.RapidAPI_HOST
+  },
 });
 
 const CABIN_CLASSES = ["economy", "premium_economy", "business", "first"] as const;
