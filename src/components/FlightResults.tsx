@@ -13,7 +13,7 @@ const FlightResults: React.FC = () => {
 
     return (
         <List>
-            {flights.map((flight, index) => (
+            {Array.isArray(flights) && flights.map((flight, index) => (
                 <ListItem key={index}>
                     <ListItemText primary={`Flight: ${flight.title}`} secondary={`Price: ${flight.price}`} />
                 </ListItem>

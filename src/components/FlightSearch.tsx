@@ -14,8 +14,8 @@ const FlightSearch: React.FC = () => {
     const [date, setDate] = useState('');
 
     const handleSearch = () => {
-        const originData = { skyId: 'NYCA', entityId: '27537542' }; // Example data
-        const destinationData = { skyId: 'LAX', entityId: '12345678' }; // Example data
+        const originData = { skyId: 'LOND', entityId: '27544008' }; // Example data
+        const destinationData = { skyId: 'NYCA', entityId: '27537542' }; // Example data
         dispatch(searchFlights({ origin: originData, destination: destinationData, date }));
     };
 
