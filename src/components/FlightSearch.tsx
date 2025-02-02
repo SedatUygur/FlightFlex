@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { searchFlights } from '../redux/flightsSlice';
+import { searchFlights } from '../redux/FlightsSlice';
 import { TextField, Button } from '@mui/material';
 import Grid from '@mui/material/Grid2';
 import { AppDispatch } from '@/redux/store';
