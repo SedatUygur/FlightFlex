@@ -1,13 +1,24 @@
 import axios from "axios";
 import { z } from "zod";
+import 'dotenv/config';
 
-import type { AirportResponse, AirportResult, FlightResponse } from "../types";
+import type { 
+  AirportResponse, 
+  AirportResult, 
+  FlightResponse,
+  NearbyAirportsResponse,
+  NearbyAirportsResult,
+} from "../types";
+
+/*console.log(process.env.VITE_RapidAPI_BaseURL);
+console.log(process.env.VITE_RapidAPI_KEY);
+console.log(process.env.VITE_RapidAPI_HOST);*/
 
 const clientV1 = axios.create({
-  baseURL: import.meta.env.RapidAPI_BaseURL,
+  baseURL: process.env.RapidAPI_BaseURL,
   headers: {
-    "x-rapidapi-key": import.meta.env.RapidAPI_KEY,
-    "x-rapidapi-host": import.meta.env.RapidAPI_HOST
+    "x-rapidapi-key": process.env.RapidAPI_KEY,
+    "x-rapidapi-host": process.env.RapidAPI_HOST
   },
 });
 
@@ -40,6 +51,30 @@ interface SearchFlightOptions {
   infants?: number;
 }
 
+export async function getNearbyAirports({
+  latitude,
+  longitude,
+}: GeolocationCoordinates): Promise<NearbyAirportsResult> {
+  const params = { lng: longitude, lat: latitude };
+  const cacheKey = JSON.stringify(params);
+  const cachedData = window.localStorage.getItem(cacheKey);
+  if (cachedData) {
+    return JSON.parse(cachedData);
+  }
+  const { data } = await clientV1.get<NearbyAirportsResponse>("/flights/getNearByAirports", {
+    params,
+  });
+  window.localStorage.setItem(cacheKey, JSON.stringify(data.data));
+  return data.data;
+}
+
+export async function searchAirport(query: string) {
+  const params = { query };
+  const { data } = await clientV1.get<AirportResponse>("/flights/searchAirport", { params });
+
+  return data.data;
+}
+
 export async function searchFlights({ origin, destination, ...options }: SearchFlightOptions) {
   const params = searchFlightsParamsSchema.parse({
     ...options,
@@ -50,13 +85,6 @@ export async function searchFlights({ origin, destination, ...options }: SearchF
   });
 
   const { data } = await clientV1.get<FlightResponse>("/flights/search", { params });
-
-  return data.data;
-}
-
-export async function searchAirport(query: string) {
-  const params = { query };
-  const { data } = await clientV1.get<AirportResponse>("/flights/searchAirport", { params });
 
   return data.data;
 }

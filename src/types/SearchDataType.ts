@@ -1,9 +1,9 @@
 import type { Dayjs } from "dayjs";
-import type { Airport } from "./AirportType";
+import type { AirportResult } from "./AirportResponseType";
 
 export type SearchData = {
-  origin: Airport | null;
-  destination: Airport | null;
+  origin: AirportResult | null;
+  destination: AirportResult | null;
   departDate: Dayjs | null;
   returnDate: Dayjs | null;
   passengers: Record<"adults" | "children" | "infants", number>;

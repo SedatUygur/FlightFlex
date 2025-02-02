@@ -1,8 +1,8 @@
 import type { APIResponse } from "./APIResponseType";
 
 export type AirportResult = {
-  skyId: string;
-  entityId: string;
+  skyId?: string;
+  entityId?: string;
   presentation: {
     title: string;
     suggestionTitle: string;

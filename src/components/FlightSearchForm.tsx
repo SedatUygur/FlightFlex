@@ -1,7 +1,6 @@
 "use client";
 
 import { Button, CircularProgress, Container, Grid2, Typography } from "@mui/material";
-import { DatePicker } from "@mui/x-date-pickers";
 import { useCallback, useState } from "react";
 import type { SearchData, TripType } from "../types";
 import { AirportsPicker } from "./AirportsPicker";
@@ -51,6 +50,14 @@ export const FlightSearchForm = () => {
     [],
   );
 
+  const handleSwapLocations = useCallback(() => {
+    setSearchData((prev) => ({
+      ...prev,
+      origin: prev.destination,
+      destination: prev.origin,
+    }));
+  }, []);
+
   if (showResults) {
     return (
       <Container maxWidth="lg" sx={{ mt: 4 }}>
@@ -73,7 +80,11 @@ export const FlightSearchForm = () => {
           />
         </Grid2>
         <Grid2 size={12}>
-          <AirportsPicker searchData={searchData} setSearchData={setSearchData} />
+          <AirportsPicker 
+            handleSwapLocations={handleSwapLocations}
+            handleSearchDataChange={handleSearchDataChange}
+            searchData={searchData} 
+          />
         </Grid2>
         <Grid2 size={tripType === "one-way" ? 12 : 6}>
           <FlightDatePicker
