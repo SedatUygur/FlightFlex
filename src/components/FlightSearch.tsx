@@ -1,3 +1,5 @@
+"use client";
+
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { searchFlights } from '../redux/flightsSlice';

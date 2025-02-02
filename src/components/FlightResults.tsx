@@ -1,3 +1,5 @@
+"use client";
+
 import React from 'react';
 import { useSelector } from 'react-redux';
 import { List, ListItem, ListItemText, CircularProgress } from '@mui/material';
