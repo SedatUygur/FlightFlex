@@ -1,0 +1,55 @@
+import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { searchFlights } from '../redux/flightsSlice';
+import { TextField, Button, Grid } from '@mui/material';
+import { AppDispatch } from '@/redux/store';
+
+const FlightSearch: React.FC = () => {
+    const dispatch = useDispatch<AppDispatch>();
+    const [origin, setOrigin] = useState('');
+    const [destination, setDestination] = useState('');
+    const [date, setDate] = useState('');
+
+    const handleSearch = () => {
+        const originData = { skyId: 'NYCA', entityId: '27537542' }; // Example data
+        const destinationData = { skyId: 'LAX', entityId: '12345678' }; // Example data
+        dispatch(searchFlights({ origin: originData, destination: destinationData, date }));
+    };
+
+    return (
+        <Grid container spacing={2}>
+            <Grid item xs={12} sm={4}>
+                <TextField
+                    fullWidth
+                    label="Origin"
+                    value={origin}
+                    onChange={(e) => setOrigin(e.target.value)}
+                />
+            </Grid>
+            <Grid item xs={12} sm={4}>
+                <TextField
+                    fullWidth
+                    label="Destination"
+                    value={destination}
+                    onChange={(e) => setDestination(e.target.value)}
+                />
+            </Grid>
+            <Grid item xs={12} sm={4}>
+                <TextField
+                    fullWidth
+                    type="date"
+                    label="Travel Date"
+                    value={date}
+                    onChange={(e) => setDate(e.target.value)}
+                />
+            </Grid>
+            <Grid item xs={12}>
+                <Button variant="contained" color="primary" onClick={handleSearch}>
+                    Search Flights
+                </Button>
+            </Grid>
+        </Grid>
+    );
+};
+
+export default FlightSearch;
