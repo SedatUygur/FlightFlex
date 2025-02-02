@@ -35,8 +35,6 @@
     "@vitejs/plugin-react": "^4.3.4",
     "eslint": "^9",
     "eslint-config-next": "15.1.6",
-    "eslint-plugin-react-hooks": "^5.1.0",
-    "eslint-plugin-react-refresh": "^0.4.18",
     "postcss": "^8",
     "stylelint": "^16.14.1",
     "stylelint-config-standard": "^37.0.0",
