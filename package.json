@@ -4,9 +4,12 @@
   "private": true,
   "scripts": {
     "dev": "next dev --turbopack",
-    "build": "next build",
+    "build": "tsc -b && next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint && stylelint \"**/*.css\"",
+    "lint:fix": "next lint --fix && stylelint \"**/*.css\" --fix",
+    "stylelint": "stylelint \"**/*.css\"",
+    "preview": "vite preview"
   },
   "dependencies": {
     "@emotion/react": "^11.14.0",
@@ -14,21 +17,31 @@
     "@mui/material": "^6.4.2",
     "@reduxjs/toolkit": "^2.5.1",
     "axios": "^1.7.9",
+    "globals": "^15.14.0",
     "next": "15.1.6",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "react-redux": "^9.2.0",
-    "redux": "^5.0.1"
+    "redux": "^5.0.1",
+    "typescript-eslint": "^8.22.0"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
+    "@eslint/js": "^9.19.0",
+    "@stylistic/stylelint-plugin": "^3.1.1",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+    "@vitejs/plugin-react": "^4.3.4",
     "eslint": "^9",
     "eslint-config-next": "15.1.6",
+    "eslint-plugin-react-hooks": "^5.1.0",
+    "eslint-plugin-react-refresh": "^0.4.18",
     "postcss": "^8",
+    "stylelint": "^16.14.1",
+    "stylelint-config-standard": "^37.0.0",
     "tailwindcss": "^3.4.1",
-    "typescript": "^5"
+    "typescript": "^5",
+    "vite": "^6.0.11"
   }
 }
