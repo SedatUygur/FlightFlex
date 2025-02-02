@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { searchFlights } from '../redux/flightsSlice';
-import { TextField, Button, Grid } from '@mui/material';
+import { TextField, Button } from '@mui/material';
+import Grid from '@mui/material/Grid2';
 import { AppDispatch } from '@/redux/store';
 
 const FlightSearch: React.FC = () => {
@@ -18,7 +19,7 @@ const FlightSearch: React.FC = () => {
 
     return (
         <Grid container spacing={2}>
-            <Grid item xs={12} sm={4}>
+            <Grid size={{ xs: 12, sm: 4 }}>
                 <TextField
                     fullWidth
                     label="Origin"
@@ -26,7 +27,7 @@ const FlightSearch: React.FC = () => {
                     onChange={(e) => setOrigin(e.target.value)}
                 />
             </Grid>
-            <Grid item xs={12} sm={4}>
+            <Grid size={{ xs: 12, sm: 4 }}>
                 <TextField
                     fullWidth
                     label="Destination"
@@ -34,7 +35,7 @@ const FlightSearch: React.FC = () => {
                     onChange={(e) => setDestination(e.target.value)}
                 />
             </Grid>
-            <Grid item xs={12} sm={4}>
+            <Grid size={{ xs: 12, sm: 4 }}>
                 <TextField
                     fullWidth
                     type="date"
@@ -43,7 +44,7 @@ const FlightSearch: React.FC = () => {
                     onChange={(e) => setDate(e.target.value)}
                 />
             </Grid>
-            <Grid item xs={12}>
+            <Grid size={{ xs: 12 }}>
                 <Button variant="contained" color="primary" onClick={handleSearch}>
                     Search Flights
                 </Button>
