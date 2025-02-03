@@ -1,13 +1,13 @@
-import { Box, IconButton, InputAdornment } from "@mui/material";
-import { MdOutlineLocationOn, MdSwapHoriz, MdTripOrigin } from "react-icons/md";
-import type { AirportResult, SearchFlightOptions } from "../types";
-import { AirportAutocomplete } from "./AirportAutocomplete";
+import { Box, IconButton, InputAdornment } from '@mui/material';
+import { MdOutlineLocationOn, MdSwapHoriz, MdTripOrigin } from 'react-icons/md';
+import type { AirportResult, SearchFlightOptions } from '../types';
+import { AirportAutocomplete } from './AirportAutocomplete';
 
 type Props = {
   searchData: SearchFlightOptions;
   handleSwapLocations: () => void;
   handleSearchDataChange: (
-    key: "destination" | "origin",
+    key: 'destination' | 'origin',
   ) => React.Dispatch<React.SetStateAction<AirportResult | null>>;
 };
 
@@ -26,7 +26,7 @@ export const AirportsPicker = (props: Props) => {
               </InputAdornment>
             }
             label="From"
-            onChange={handleSearchDataChange("origin")}
+            onChange={handleSearchDataChange('origin')}
             showNearbyAirports
           />
         </Box>
@@ -35,8 +35,8 @@ export const AirportsPicker = (props: Props) => {
           <IconButton
             onClick={handleSwapLocations}
             sx={{
-              border: "1px solid",
-              borderColor: "divider",
+              border: '1px solid',
+              borderColor: 'divider',
             }}
           >
             <MdSwapHoriz />
@@ -52,7 +52,7 @@ export const AirportsPicker = (props: Props) => {
               </InputAdornment>
             }
             label="To"
-            onChange={handleSearchDataChange("destination")}
+            onChange={handleSearchDataChange('destination')}
           />
         </Box>
       </Box>

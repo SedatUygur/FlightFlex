@@ -1,4 +1,4 @@
-import type { Carrier } from "./CarrierType";
+import type { Carrier } from './CarrierType';
 
 export type LegSegment = {
   id: string;
@@ -8,8 +8,8 @@ export type LegSegment = {
   arrival: string;
   durationInMinutes: number;
   flightNumber: string;
-  marketingCarrier: Omit<Carrier, "logoUrl">;
-  operatingCarrier: Omit<Carrier, "logoUrl">;
+  marketingCarrier: Omit<Carrier, 'logoUrl'>;
+  operatingCarrier: Omit<Carrier, 'logoUrl'>;
 };
 
 export type LegSegmentPoint = {

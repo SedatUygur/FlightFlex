@@ -1,5 +1,5 @@
-import { z } from "zod";
-import { CabinClass } from "../types";
+import { z } from 'zod';
+import { CabinClass } from '../types';
 
 const formatDate = (date?: Date | null) => date?.toISOString().slice(0, 10);
 

@@ -1,4 +1,4 @@
-import type { APIResponse } from "./APIResponseType";
+import type { APIResponse } from './APIResponseType';
 
 export type AirportResult = {
   skyId?: string;

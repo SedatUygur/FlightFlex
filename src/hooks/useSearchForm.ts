@@ -1,10 +1,10 @@
-import { useCallback, useMemo, useState } from "react";
-import { searchFormSchema } from "../schemas/SearchFormSchema";
-import { searchFlights } from "../services/AirScraperService";
-import type { FlightResult, SearchFlightOptions, TripType } from "../types";
-import { CabinClass } from "../types";
+import { useCallback, useMemo, useState } from 'react';
+import { searchFormSchema } from '../schemas/SearchFormSchema';
+import { searchFlights } from '../services/AirScraperService';
+import type { FlightResult, SearchFlightOptions, TripType } from '../types';
+import { CabinClass } from '../types';
 export const useSearchForm = () => {
-  const [tripType, setTripType] = useState<TripType>("round-trip");
+  const [tripType, setTripType] = useState<TripType>('round-trip');
   const [searchData, setSearchData] = useState<SearchFlightOptions>({
     origin: null,
     destination: null,
@@ -50,7 +50,7 @@ export const useSearchForm = () => {
       (dispatch) =>
         setSearchData((prev) => ({
           ...prev,
-          [key]: typeof dispatch !== "function" ? dispatch : dispatch(prev[key]),
+          [key]: typeof dispatch !== 'function' ? dispatch : dispatch(prev[key]),
         })),
     [],
   );

@@ -1,11 +1,11 @@
-import { DatePicker, type DatePickerProps } from "@mui/x-date-pickers";
-import type { Dayjs } from "dayjs";
+import { DatePicker, type DatePickerProps } from '@mui/x-date-pickers';
+import type { Dayjs } from 'dayjs';
 
 interface Props extends DatePickerProps<Dayjs> {
   label: string;
   value: Dayjs | null;
   onSelectDate: (value: Dayjs | null) => void;
-};
+}
 
 export const FlightDatePicker = ({ label, value, onSelectDate, ...props }: Props) => {
   return (

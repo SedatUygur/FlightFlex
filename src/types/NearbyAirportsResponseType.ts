@@ -1,5 +1,5 @@
-import type { AirportResult } from "./AirportResponseType";
-import type { APIResponse } from "./APIResponseType";
+import type { AirportResult } from './AirportResponseType';
+import type { APIResponse } from './APIResponseType';
 
 export type NearbyAirportsResult = {
   current: AirportResult;

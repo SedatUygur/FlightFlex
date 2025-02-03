@@ -1,19 +1,19 @@
-"use client";
+'use client';
 
-import { Button, CircularProgress, Container, Grid2 } from "@mui/material";
-import dayjs from "dayjs";
-import { useRef } from "react";
-import { useSearchForm } from "../hooks/useSearchForm";
-import { AirportsPicker } from "./AirportsPicker";
-import { EmptyFlightResults } from "./EmptyFlightResults";
-import { FlightDatePicker } from "./FlightDatePicker";
-import { FlightResultsTable } from "./FlightResultsTable";
-import PassengerCountPicker from "./PassengerCountPicker";
-import { TripTypePicker } from "./TripTypePicker";
+import { Button, CircularProgress, Container, Grid2 } from '@mui/material';
+import dayjs from 'dayjs';
+import { useRef } from 'react';
+import { useSearchForm } from '../hooks/useSearchForm';
+import { AirportsPicker } from './AirportsPicker';
+import { EmptyFlightResults } from './EmptyFlightResults';
+import { FlightDatePicker } from './FlightDatePicker';
+import { FlightResultsTable } from './FlightResultsTable';
+import PassengerCountPicker from './PassengerCountPicker';
+import { TripTypePicker } from './TripTypePicker';
 
 export const FlightSearchForm = () => {
   const today = useRef(dayjs());
-  
+
   const {
     loading,
     result,
@@ -35,31 +35,31 @@ export const FlightSearchForm = () => {
           <TripTypePicker tripType={tripType} setTripType={setTripType} />
           <PassengerCountPicker
             passengers={searchData.passengers}
-            setPassengers={handleSearchDataChange("passengers")}
+            setPassengers={handleSearchDataChange('passengers')}
           />
         </Grid2>
         <Grid2 size={12}>
-          <AirportsPicker 
+          <AirportsPicker
             handleSwapLocations={handleSwapLocations}
             handleSearchDataChange={handleSearchDataChange}
-            searchData={searchData} 
+            searchData={searchData}
           />
         </Grid2>
-        <Grid2 size={tripType === "one-way" ? 12 : 6}>
+        <Grid2 size={tripType === 'one-way' ? 12 : 6}>
           <FlightDatePicker
             label="Departure Date"
-            onSelectDate={handleSearchDataChange("date")}
+            onSelectDate={handleSearchDataChange('date')}
             value={searchData.date}
             minDate={today.current}
             showDaysOutsideCurrentMonth
           />
         </Grid2>
-        {tripType === "round-trip" && (
+        {tripType === 'round-trip' && (
           <Grid2 size={6}>
             <FlightDatePicker
               label="Return Date"
               value={searchData.returnDate}
-              onSelectDate={handleSearchDataChange("returnDate")}
+              onSelectDate={handleSearchDataChange('returnDate')}
               minDate={searchData.date || today.current}
               disableHighlightToday
             />
@@ -74,7 +74,7 @@ export const FlightSearchForm = () => {
             onClick={handleSearch}
             disabled={!isFormValid}
           >
-            {loading ? <CircularProgress size={24} color="inherit" /> : "Search Flights"}
+            {loading ? <CircularProgress size={24} color="inherit" /> : 'Search Flights'}
           </Button>
         </Grid2>
       </Grid2>

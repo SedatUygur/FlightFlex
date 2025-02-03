@@ -1,7 +1,7 @@
-import { InputAdornment, MenuItem, SvgIcon, TextField } from "@mui/material";
-import { useRef } from "react";
-import { TbArrowNarrowRight, TbArrowsUpDown } from "react-icons/tb";
-import type { TripType } from "../types";
+import { InputAdornment, MenuItem, SvgIcon, TextField } from '@mui/material';
+import { useRef } from 'react';
+import { TbArrowNarrowRight, TbArrowsUpDown } from 'react-icons/tb';
+import type { TripType } from '../types';
 
 type Props = {
   tripType: TripType;
@@ -11,15 +11,15 @@ type Props = {
 export const TripTypePicker = ({ tripType, setTripType }: Props) => {
   const selectRef = useRef<HTMLDivElement | null>(null);
   const textFieldRef = useRef<HTMLInputElement>(null);
-  const isRoundTrip = tripType === "round-trip";
+  const isRoundTrip = tripType === 'round-trip';
 
   const handleAdornmentClick = (e: React.SyntheticEvent) => {
-    const selectTrigger = selectRef.current?.querySelector(".MuiSelect-select");
+    const selectTrigger = selectRef.current?.querySelector('.MuiSelect-select');
     if (selectTrigger) {
       if (e.currentTarget === selectTrigger) {
         (selectTrigger as HTMLElement).blur();
       }
-      selectTrigger.dispatchEvent(new MouseEvent("mousedown", { bubbles: true }));
+      selectTrigger.dispatchEvent(new MouseEvent('mousedown', { bubbles: true }));
     }
   };
 
@@ -32,13 +32,13 @@ export const TripTypePicker = ({ tripType, setTripType }: Props) => {
         input: {
           startAdornment: (
             <InputAdornment position="start" onClick={handleAdornmentClick}>
-              <SvgIcon sx={{ rotate: isRoundTrip ? "90deg" : undefined }}>
+              <SvgIcon sx={{ rotate: isRoundTrip ? '90deg' : undefined }}>
                 {isRoundTrip ? <TbArrowsUpDown /> : <TbArrowNarrowRight />}
               </SvgIcon>
             </InputAdornment>
           ),
           sx: {
-            cursor: "pointer",
+            cursor: 'pointer',
           },
           ref: textFieldRef,
           fullWidth: true,

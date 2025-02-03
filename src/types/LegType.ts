@@ -1,6 +1,6 @@
-import type { Airport } from "./AirportType";
-import type { Carrier } from "./CarrierType";
-import type { LegSegment } from "./LegSegmentType";
+import type { Airport } from './AirportType';
+import type { Carrier } from './CarrierType';
+import type { LegSegment } from './LegSegmentType';
 
 export type Leg = {
   id: string;
@@ -15,7 +15,7 @@ export type Leg = {
   carriers: {
     marketing: Carrier[];
     operating?: Carrier[];
-    operationType: "not_operated" | string;
+    operationType: 'not_operated' | string;
   };
   segments: LegSegment[];
 };

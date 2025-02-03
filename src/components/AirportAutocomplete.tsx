@@ -1,7 +1,7 @@
-import { Autocomplete, TextField } from "@mui/material";
-import { useCallback, useEffect, useRef, useState } from "react";
-import { getNearbyAirports, searchAirport } from "../services/AirScraperService";
-import type { AirportResult } from "../types";
+import { Autocomplete, TextField } from '@mui/material';
+import { useCallback, useEffect, useRef, useState } from 'react';
+import { getNearbyAirports, searchAirport } from '../services/AirScraperService';
+import type { AirportResult } from '../types';
 type Props = {
   value: AirportResult | null;
   icon?: React.ReactNode;
@@ -61,7 +61,7 @@ export const AirportAutocomplete = (props: Props) => {
       onFocus={handleShouldOpen}
       onBlur={() => setIsOpen(false)}
       options={options}
-      getOptionLabel={(option) => (option ? option.presentation.suggestionTitle : "")}
+      getOptionLabel={(option) => (option ? option.presentation.suggestionTitle : '')}
       open={!loading && isOpen}
       renderInput={(params) => (
         <TextField

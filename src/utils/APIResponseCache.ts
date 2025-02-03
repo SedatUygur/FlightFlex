@@ -1,7 +1,7 @@
-import type { APIResponse } from "../types/APIResponseType";
+import type { APIResponse } from '../types/APIResponseType';
 
 export class APIResponseCache<T extends APIResponse<unknown>> {
-  protected prefix = "sky-scrapper:";
+  protected prefix = 'sky-scrapper:';
   constructor(private readonly cacheKey: string) {
     this.cacheKey = `${this.prefix}${cacheKey}`;
   }

@@ -1,7 +1,5 @@
-import { FlightSearchForm } from "../components/FlightSearchForm";
+import { FlightSearchForm } from '../components/FlightSearchForm';
 
 export default function Home() {
-  return (
-    <FlightSearchForm />
-  );
+  return <FlightSearchForm />;
 }

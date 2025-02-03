@@ -1,4 +1,4 @@
-import type { Leg } from "./LegType";
+import type { Leg } from './LegType';
 
 export type Itinerary = {
   id: string;
@@ -13,7 +13,7 @@ export type Itinerary = {
     isPartiallyRefundable: boolean;
   };
   fareAttributes: object;
-  tags?: ("third_cheapest" | "second_shortest" | string)[];
+  tags?: ('third_cheapest' | 'second_shortest' | string)[];
   isMashUp: boolean;
   hasFlexibleOptions: boolean;
   score: number;

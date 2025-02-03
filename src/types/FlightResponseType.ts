@@ -1,10 +1,10 @@
-import type { APIResponse } from "./APIResponseType";
-import type { Carrier } from "./CarrierType";
-import type { Itinerary } from "./ItineraryType";
+import type { APIResponse } from './APIResponseType';
+import type { Carrier } from './CarrierType';
+import type { Itinerary } from './ItineraryType';
 
 export type FlightResult = {
   context: {
-    status: "incomplete" | string;
+    status: 'incomplete' | string;
     sessionId: string;
     totalResults: number;
   };
