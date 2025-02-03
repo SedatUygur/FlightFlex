@@ -77,6 +77,8 @@ function AirportAutocomplete({
 }) {
   const initialRender = useRef(true);
   const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const [isOpen, setIsOpen] = useState(false);
+  const [loading, setLoading] = useState<boolean>(false);
   const [options, setOptions] = useState<AirportResult[]>([]);
 
   useEffect(() => {
@@ -92,32 +94,46 @@ function AirportAutocomplete({
   }, [onChange, showNearbyAirports]);
 
   const handleInput = useCallback((e: React.SyntheticEvent) => {
+    setLoading(true);
     if (timeoutRef.current) {
       clearTimeout(timeoutRef.current);
     }
     timeoutRef.current = setTimeout(async () => {
-      const input = e.target as HTMLInputElement;
-      const airports = await searchAirport(input.value);
-      setOptions(airports);
-      timeoutRef.current = null;
+      try {
+        const input = e.target as HTMLInputElement;
+        const airports = await searchAirport(input.value);
+        setOptions(airports);
+        timeoutRef.current = null;
+      } catch (e) {
+        console.error(e);
+        // Handle errors gracefully
+      } finally {
+        setLoading(false);
+      }
     }, 300);
   }, []);
 
   return (
     <Autocomplete<AirportResult>
-      value={value}
-      onChange={(_e, newValue) => newValue && onChange(newValue)}
-      options={options} // Todo: Inject airports
       getOptionLabel={(option) => (option ? option.presentation.suggestionTitle : "")}
+      onChange={(_e, newValue) => newValue && onChange(newValue)}
+      open={!loading && isOpen}
+      options={options}
+      value={value}
       renderInput={(params) => (
         <TextField
           {...params}
           label={label}
-          onChange={handleInput}
+          onChange={(e) => {
+            handleInput(e);
+            const hasSearchValue = (e.target as HTMLInputElement).value.trim().length > 0;
+            setIsOpen(hasSearchValue);
+          }}
           slotProps={{
             input: {
               ...params.InputProps,
               startAdornment: icon,
+              endAdornment: null,
             },
           }}
           fullWidth
