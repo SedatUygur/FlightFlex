@@ -5,7 +5,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 /*import { Provider } from 'react-redux';
 import store from '../redux/store';*/
 import { CssBaseline } from '@mui/material';
-import { MuiProvider } from "../providers/MUIProvider";
+import { MuiProvider } from "../components/MUIProvider";
 import "./globals.css";
 
 const geistSans = Geist({
