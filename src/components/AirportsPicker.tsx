@@ -1,14 +1,8 @@
-import { 
-  Autocomplete,
-  Box, 
-  IconButton,
-  InputAdornment,
-  TextField 
-} from "@mui/material";
+import { Autocomplete, Box, IconButton, InputAdornment, TextField } from "@mui/material";
 import { type SyntheticEvent, useCallback, useEffect, useRef, useState } from "react";
 import { MdOutlineLocationOn, MdSwapHoriz, MdTripOrigin } from "react-icons/md";
-import type { AirportResult, SearchFlightOptions } from "../types";
 import { getNearbyAirports, searchAirport } from "../services/AirScraperService";
+import type { AirportResult, SearchFlightOptions } from "../types";
 
 type Props = {
   searchData: SearchFlightOptions;
@@ -17,8 +11,11 @@ type Props = {
     key: "destination" | "origin",
   ) => React.Dispatch<React.SetStateAction<AirportResult | null>>;
 };
-
-export const AirportsPicker = ({ searchData, handleSwapLocations, handleSearchDataChange }: Props) => {
+export const AirportsPicker = ({
+  searchData,
+  handleSwapLocations,
+  handleSearchDataChange,
+}: Props) => {
   return (
     <>
       <Box display="flex" alignItems="center" gap={1}>
@@ -35,6 +32,7 @@ export const AirportsPicker = ({ searchData, handleSwapLocations, handleSearchDa
             showNearbyAirports
           />
         </Box>
+
         <Box>
           <IconButton
             onClick={handleSwapLocations}
@@ -46,6 +44,7 @@ export const AirportsPicker = ({ searchData, handleSwapLocations, handleSearchDa
             <MdSwapHoriz />
           </IconButton>
         </Box>
+
         <Box flex={1}>
           <AirportAutocomplete
             value={searchData.destination}
@@ -62,6 +61,7 @@ export const AirportsPicker = ({ searchData, handleSwapLocations, handleSearchDa
     </>
   );
 };
+
 function AirportAutocomplete({
   value,
   icon,
@@ -75,14 +75,15 @@ function AirportAutocomplete({
   onChange: (newValue: AirportResult) => void;
   showNearbyAirports?: boolean;
 }) {
-  const initialRender = useRef(true);
   const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const initialRender = useRef(true);
+  const [options, setOptions] = useState<AirportResult[]>([]);
   const [isOpen, setIsOpen] = useState(false);
   const [loading, setLoading] = useState<boolean>(false);
-  const [options, setOptions] = useState<AirportResult[]>([]);
 
   useEffect(() => {
     if (!showNearbyAirports) return;
+
     navigator.geolocation.getCurrentPosition(async (position) => {
       const { current, nearby } = await getNearbyAirports(position.coords);
       if (initialRender.current) {
@@ -95,9 +96,11 @@ function AirportAutocomplete({
 
   const handleInput = useCallback((e: React.SyntheticEvent) => {
     setLoading(true);
+
     if (timeoutRef.current) {
       clearTimeout(timeoutRef.current);
     }
+
     timeoutRef.current = setTimeout(async () => {
       try {
         const input = e.target as HTMLInputElement;
@@ -120,7 +123,7 @@ function AirportAutocomplete({
 
   return (
     <Autocomplete<AirportResult>
-      getOptionLabel={(option) => (option ? option.presentation.suggestionTitle : "")}
+      value={value}
       onChange={(_e, newValue) => {
         // eslint-disable-next-line @typescript-eslint/no-unused-expressions
         newValue && onChange(newValue);
@@ -128,13 +131,14 @@ function AirportAutocomplete({
       }}
       onFocus={handleShouldOpen}
       onBlur={() => setIsOpen(false)}
-      open={!loading && isOpen}
       options={options}
-      value={value}
+      getOptionLabel={(option) => (option ? option.presentation.suggestionTitle : "")}
+      open={!loading && isOpen}
       renderInput={(params) => (
         <TextField
           {...params}
           label={label}
+          fullWidth
           onChange={(e) => {
             handleInput(e);
             handleShouldOpen(e);
@@ -146,7 +150,6 @@ function AirportAutocomplete({
               endAdornment: null,
             },
           }}
-          fullWidth
         />
       )}
     />
