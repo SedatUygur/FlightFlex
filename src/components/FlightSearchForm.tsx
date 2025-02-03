@@ -2,7 +2,8 @@
 
 import { Button, CircularProgress, Container, Grid2 } from "@mui/material";
 import dayjs from "dayjs";
-import { useCallback, useRef, useState } from "react";
+import { useCallback, useMemo, useRef, useState } from "react";
+import { searchFormSchema } from "../schemas/SearchFormSchema";
 import { AirportsPicker } from "./AirportsPicker";
 import { FlightDatePicker } from "./FlightDatePicker";
 import { FlightResultsTable } from "./FlightResultsTable";
@@ -29,11 +30,10 @@ export const FlightSearchForm = () => {
   const [loading, setLoading] = useState(false);
   const [result, setResult] = useState<FlightResult | null>(null);
 
-  const isFormValid = searchData.origin ||
-  searchData.destination ||
-  searchData.date ||
-  (tripType === "roundtrip" && searchData.returnDate?.isAfter(searchData.date)) ||
-  searchData.passengers?.adults > 0;
+  const { success: isFormValid } = useMemo(
+    () => searchFormSchema.safeParse(searchData),
+    [searchData],
+  );
 
   async function handleSearch() {
     try {
