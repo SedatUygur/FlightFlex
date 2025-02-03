@@ -36,7 +36,10 @@ const clientV1 = axios.create({
 });
 
 class APIResponseCache<T extends APIResponse<unknown>> {
-  constructor(private readonly cacheKey: string) {}
+  protected prefix = "air-scrapper:";
+  constructor(private readonly cacheKey: string) {
+    this.cacheKey = `${this.prefix}${cacheKey}`;
+  }
 
   get response() {
     const cachedData = window.localStorage.getItem(this.cacheKey);
@@ -46,8 +49,17 @@ class APIResponseCache<T extends APIResponse<unknown>> {
     return { data: JSON.parse(cachedData) as T };
   }
 
+  clear() {
+    for (const key of Object.keys({ ...window.localStorage })) {
+      if (key.startsWith(this.prefix)) {
+        window.localStorage.removeItem(key);
+      }
+    }
+  }
+
   store(data: T) {
-    window.localStorage.setItem(this.cacheKey, JSON.stringify(data));
+    // eslint-disable-next-line @typescript-eslint/no-unused-expressions
+    data.status && window.localStorage.setItem(this.cacheKey, JSON.stringify(data));
   }
 }
 
