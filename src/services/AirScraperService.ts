@@ -4,28 +4,17 @@ import 'dotenv/config';
 
 import type { 
   AirportResponse, 
-  AirportResult, 
+  AirportResult,
+  APIResponse,
   FlightResponse,
   NearbyAirportsResponse,
   NearbyAirportsResult,
 } from "../types";
 
-/*console.log(process.env.VITE_RapidAPI_BaseURL);
-console.log(process.env.VITE_RapidAPI_KEY);
-console.log(process.env.VITE_RapidAPI_HOST);*/
-
-const clientV1 = axios.create({
-  baseURL: process.env.RapidAPI_BaseURL,
-  headers: {
-    "x-rapidapi-key": process.env.RapidAPI_KEY,
-    "x-rapidapi-host": process.env.RapidAPI_HOST
-  },
-});
+const formatDate = (date?: Date) => date?.toISOString().slice(0, 10);
 
 const CABIN_CLASSES = ["economy", "premium_economy", "business", "first"] as const;
 type CabinClass = (typeof CABIN_CLASSES)[number];
-
-const formatDate = (date?: Date) => date?.toISOString().slice(0, 10);
 
 const searchFlightsParamsSchema = z.object({
   originSkyId: z.string(),
@@ -51,26 +40,54 @@ interface SearchFlightOptions {
   infants?: number;
 }
 
+const clientV1 = axios.create({
+  baseURL: process.env.RapidAPI_BaseURL,
+  headers: {
+    "x-rapidapi-key": process.env.RapidAPI_KEY,
+    "x-rapidapi-host": process.env.RapidAPI_HOST
+  },
+});
+
+class APIResponseCache<T extends APIResponse<unknown>> {
+  constructor(private readonly cacheKey: string) {}
+
+  get response() {
+    const cachedData = window.localStorage.getItem(this.cacheKey);
+
+    if (!cachedData) return null;
+
+    return { data: JSON.parse(cachedData) as T };
+  }
+
+  store(data: T) {
+    window.localStorage.setItem(this.cacheKey, JSON.stringify(data));
+  }
+}
+
 export async function getNearbyAirports({
   latitude,
   longitude,
 }: GeolocationCoordinates): Promise<NearbyAirportsResult> {
   const params = { lng: longitude, lat: latitude };
-  const cacheKey = JSON.stringify(params);
-  const cachedData = window.localStorage.getItem(cacheKey);
-  if (cachedData) {
-    return JSON.parse(cachedData);
-  }
-  const { data } = await clientV1.get<NearbyAirportsResponse>("/flights/getNearByAirports", {
-    params,
-  });
-  window.localStorage.setItem(cacheKey, JSON.stringify(data.data));
+  const cacheKey = [longitude.toFixed(2), latitude.toFixed(2)].join(","); // ~1km proximity
+
+  const cache = new APIResponseCache<NearbyAirportsResponse>(cacheKey);
+  const getter = () => clientV1.get<NearbyAirportsResponse>("/getNearByAirports", { params });
+
+  const { data } = cache.response || (await getter());
+
+  cache.store(data);
   return data.data;
 }
 
 export async function searchAirport(query: string) {
+  if (!query.trim()) return [];
+
   const params = { query };
-  const { data } = await clientV1.get<AirportResponse>("/flights/searchAirport", { params });
+  const cache = new APIResponseCache<AirportResponse>(query);
+  const getter = () => clientV1.get<AirportResponse>("/searchAirport", { params });
+  const { data } = cache.response || (await getter());
+  cache.store(data);
 
   return data.data;
 }
@@ -84,7 +101,7 @@ export async function searchFlights({ origin, destination, ...options }: SearchF
     destinationEntityId: destination.entityId,
   });
 
-  const { data } = await clientV1.get<FlightResponse>("/flights/search", { params });
+  const { data } = await clientV1.get<FlightResponse>("/search", { params });
 
   return data.data;
 }

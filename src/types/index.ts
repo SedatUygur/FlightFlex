@@ -1,5 +1,6 @@
 export type * from "./AirportResponseType";
 export type * from "./AirportType";
+export type * from "./APIResponseType";
 export type * from "./CarrierType";
 export type * from "./FlightResponseType";
 export type * from "./ItineraryType";
