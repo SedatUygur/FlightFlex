@@ -6,7 +6,7 @@ export type SearchFlightOptions = {
   cabinClass: CabinClass;
   origin: AirportResult | null;
   destination: AirportResult | null;
-  departDate: Dayjs | null;
+  date: Dayjs | null;
   returnDate: Dayjs | null;
   passengers: Record<"adults" | "children" | "infants", number>;
 };
