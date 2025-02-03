@@ -1,5 +1,5 @@
 import axios from "axios";
-import { z } from "zod";
+import { searchFlightsParamsSchema } from "../schemas/SearchFlightParamsSchema";
 import type {
   AirportResponse,
   FlightResponse,
@@ -7,8 +7,7 @@ import type {
   NearbyAirportsResult,
   SearchFlightOptions,
 } from "../types";
-import type { APIResponse } from "../types/APIResponseType";
-import { CabinClass } from "../types/CabinClassType";
+import { APIResponseCache } from "../utils/APIResponseCache";
 
 const clientV1 = axios.create({
   baseURL: process.env.NEXT_PUBLIC_RapidAPI_BaseURL,
@@ -16,21 +15,6 @@ const clientV1 = axios.create({
     "x-rapidapi-host": process.env.NEXT_PUBLIC_RapidAPI_HOST,
     "x-rapidapi-key": process.env.NEXT_PUBLIC_RapidAPI_KEY,
   },
-});
-
-const formatDate = (date?: Date) => date?.toISOString().slice(0, 10);
-
-const searchFlightsParamsSchema = z.object({
-  originSkyId: z.string(),
-  destinationSkyId: z.string(),
-  originEntityId: z.preprocess(Number, z.number().int()),
-  destinationEntityId: z.preprocess(Number, z.number().int()),
-  date: z.coerce.date().transform(formatDate),
-  returnDate: z.coerce.date().optional().transform(formatDate),
-  cabinClass: z.nativeEnum(CabinClass).default(CabinClass.Economy),
-  adults: z.number().int().min(1).default(1),
-  children: z.number().int().optional(),
-  infants: z.number().int().optional(),
 });
 
 export async function searchFlights({ origin, destination, ...options }: SearchFlightOptions) {
@@ -70,34 +54,4 @@ export async function getNearbyAirports({
   const { data } = cache.response || (await getter());
   cache.store(data);
   return data.data;
-}
-
-class APIResponseCache<T extends APIResponse<unknown>> {
-  protected prefix = "sky-scrapper:";
-
-  constructor(private readonly cacheKey: string) {
-    this.cacheKey = `${this.prefix}${cacheKey}`;
-  }
-
-  get response() {
-    const cachedData = window.localStorage.getItem(this.cacheKey);
-
-    if (!cachedData) return null;
-
-    return { data: JSON.parse(cachedData) as T };
-  }
-
-  store(data: T) {
-    if (data.status) {
-      window.localStorage.setItem(this.cacheKey, JSON.stringify(data));
-    }
-  }
-
-  clear() {
-    for (const key of Object.keys({ ...window.localStorage })) {
-      if (key.startsWith(this.prefix)) {
-        window.localStorage.removeItem(key);
-      }
-    }
-  }
 }
