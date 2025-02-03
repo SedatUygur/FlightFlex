@@ -55,7 +55,7 @@ const theme = createTheme({
   },
 });
 
-export const MuiProvider = ({ children }: { children: React.ReactNode }) => (
+export const MUIProvider = ({ children }: { children: React.ReactNode }) => (
   <LocalizationProvider dateAdapter={AdapterDayjs}>
     <ThemeProvider theme={theme}>{children}</ThemeProvider>
   </LocalizationProvider>
