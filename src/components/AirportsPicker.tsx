@@ -5,7 +5,7 @@ import {
   InputAdornment,
   TextField 
 } from "@mui/material";
-import { useCallback, useEffect, useRef, useState } from "react";
+import { type SyntheticEvent, useCallback, useEffect, useRef, useState } from "react";
 import { MdOutlineLocationOn, MdSwapHoriz, MdTripOrigin } from "react-icons/md";
 import type { AirportResult, SearchFlightOptions } from "../types";
 import { getNearbyAirports, searchAirport } from "../services/AirScraperService";
@@ -113,10 +113,21 @@ function AirportAutocomplete({
     }, 300);
   }, []);
 
+  function handleShouldOpen(e: SyntheticEvent) {
+    const hasSearchValue = (e.target as HTMLInputElement).value.trim().length > 0;
+    setIsOpen(hasSearchValue);
+  }
+
   return (
     <Autocomplete<AirportResult>
       getOptionLabel={(option) => (option ? option.presentation.suggestionTitle : "")}
-      onChange={(_e, newValue) => newValue && onChange(newValue)}
+      onChange={(_e, newValue) => {
+        // eslint-disable-next-line @typescript-eslint/no-unused-expressions
+        newValue && onChange(newValue);
+        setIsOpen(false);
+      }}
+      onFocus={handleShouldOpen}
+      onBlur={() => setIsOpen(false)}
       open={!loading && isOpen}
       options={options}
       value={value}
@@ -126,8 +137,7 @@ function AirportAutocomplete({
           label={label}
           onChange={(e) => {
             handleInput(e);
-            const hasSearchValue = (e.target as HTMLInputElement).value.trim().length > 0;
-            setIsOpen(hasSearchValue);
+            handleShouldOpen(e);
           }}
           slotProps={{
             input: {
