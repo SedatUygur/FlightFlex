@@ -3,42 +3,29 @@ import { z } from "zod";
 import 'dotenv/config';
 
 import type { 
-  AirportResponse, 
-  AirportResult,
+  AirportResponse,
   APIResponse,
   FlightResponse,
   NearbyAirportsResponse,
   NearbyAirportsResult,
+  SearchFlightOptions,
 } from "../types";
+import { CabinClass } from "../types/CabinClassType";
 
 const formatDate = (date?: Date) => date?.toISOString().slice(0, 10);
-
-const CABIN_CLASSES = ["economy", "premium_economy", "business", "first"] as const;
-type CabinClass = (typeof CABIN_CLASSES)[number];
 
 const searchFlightsParamsSchema = z.object({
   originSkyId: z.string(),
   destinationSkyId: z.string(),
   originEntityId: z.preprocess(Number, z.number().int()),
   destinationEntityId: z.preprocess(Number, z.number().int()),
-  date: z.coerce.date().transform(formatDate),
+  departDate: z.coerce.date().transform(formatDate),
   returnDate: z.coerce.date().optional().transform(formatDate),
-  cabinClass: z.enum(CABIN_CLASSES).default("economy"),
+  cabinClass: z.nativeEnum(CabinClass).default(CabinClass.Economy),
   adults: z.number().int().min(1).default(1),
   children: z.number().int().optional(),
   infants: z.number().int().optional(),
 });
-
-interface SearchFlightOptions {
-  origin: AirportResult;
-  destination: AirportResult;
-  date: string;
-  returnDate?: string;
-  cabinClass?: CabinClass;
-  adults?: number;
-  children?: number;
-  infants?: number;
-}
 
 const clientV1 = axios.create({
   baseURL: process.env.RapidAPI_BaseURL,
@@ -95,10 +82,10 @@ export async function searchAirport(query: string) {
 export async function searchFlights({ origin, destination, ...options }: SearchFlightOptions) {
   const params = searchFlightsParamsSchema.parse({
     ...options,
-    originSkyId: origin.skyId,
-    originEntityId: origin.entityId,
-    destinationSkyId: destination.skyId,
-    destinationEntityId: destination.entityId,
+    originSkyId: origin?.skyId,
+    originEntityId: origin?.entityId,
+    destinationSkyId: destination?.skyId,
+    destinationEntityId: destination?.entityId,
   });
 
   const { data } = await clientV1.get<FlightResponse>("/search", { params });

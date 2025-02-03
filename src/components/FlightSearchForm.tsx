@@ -1,20 +1,22 @@
 "use client";
 
-import { Button, CircularProgress, Container, Grid2, Typography } from "@mui/material";
+import { Button, CircularProgress, Container, Grid2 } from "@mui/material";
 import { useCallback, useState } from "react";
-import type { SearchData, TripType } from "../types";
 import { AirportsPicker } from "./AirportsPicker";
 import { FlightDatePicker } from "./FlightDatePicker";
 import PassengerCountPicker from "./PassengerCountPicker";
 import { TripTypePicker } from "./TripTypePicker";
+import { searchFlights } from "../services/AirScraperService";
+import { CabinClass, type FlightResult, type SearchFlightOptions, type TripType } from "../types";
 
 export const FlightSearchForm = () => {
   const [tripType, setTripType] = useState<TripType>("roundtrip");
-  const [searchData, setSearchData] = useState<SearchData>({
+  const [searchData, setSearchData] = useState<SearchFlightOptions>({
     origin: null,
     destination: null,
     departDate: null,
     returnDate: null,
+    cabinClass: CabinClass.Economy,
     passengers: {
       adults: 1,
       children: 0,
@@ -22,33 +24,30 @@ export const FlightSearchForm = () => {
     },
   });
   const [loading, setLoading] = useState(false);
-  const [showResults, setShowResults] = useState(false);
+  const [results, setResults] = useState<FlightResult[] | null>(null);
 
-  const handleSearch = () => {
-    setLoading(true);
-    // Simulate API call
-    setTimeout(() => {
+  async function handleSearch() {
+    try {
+      if (
+        !searchData.origin ||
+        !searchData.destination ||
+        searchData.departDate ||
+        (tripType === "roundtrip" && !searchData.returnDate) ||
+        !searchData.passengers ||
+        searchData.passengers.adults < 1
+      )
+        return;
+
+      setLoading(true);
+      const results = await searchFlights(searchData);
+      setResults(results);
+    } catch (e) {
+      console.error(e);
+      // Todo: Handle errors gracefully
+    } finally {
       setLoading(false);
-      setShowResults(true);
-    }, 1500);
-  };
-
-  const handleBackToSearch = () => {
-    setShowResults(false);
-  };
-
-  const handleSearchDataChange = useCallback(
-    <K extends keyof SearchData>(key: K): React.Dispatch<React.SetStateAction<SearchData[K]>> =>
-      (newValueOrCallback) =>
-        setSearchData((prev) => ({
-          ...prev,
-          [key]:
-            typeof newValueOrCallback === "function"
-              ? newValueOrCallback(prev[key])
-              : newValueOrCallback,
-        })),
-    [],
-  );
+    }
+  }
 
   const handleSwapLocations = useCallback(() => {
     setSearchData((prev) => ({
@@ -58,17 +57,20 @@ export const FlightSearchForm = () => {
     }));
   }, []);
 
-  if (showResults) {
-    return (
-      <Container maxWidth="lg" sx={{ mt: 4 }}>
-        <Button variant="outlined" onClick={handleBackToSearch} sx={{ mb: 2 }}>
-          Back to Search
-        </Button>
-        {/* Results table would go here */}
-        <Typography variant="h6">Flight Results</Typography>
-      </Container>
-    );
-  }
+  const handleSearchDataChange = useCallback(
+    <K extends keyof SearchFlightOptions>(
+      key: K,
+    ): React.Dispatch<React.SetStateAction<(typeof searchData)[K]>> =>
+      (dispatch) =>
+        setSearchData((prev) => ({
+          ...prev,
+          [key]: typeof dispatch !== "function" ? dispatch : dispatch(prev[key]),
+        })),
+    [],
+  );
+
+  const showResults = !!results;
+
   return (
     <Container maxWidth="md">
       <Grid2 container spacing={3}>
@@ -118,6 +120,11 @@ export const FlightSearchForm = () => {
           </Button>
         </Grid2>
       </Grid2>
+      {showResults && (
+        <Grid2 container sx={{ mt: 4 }}>
+          {/* Results table would go here */}
+        </Grid2>
+      )}
     </Container>
   );
 };

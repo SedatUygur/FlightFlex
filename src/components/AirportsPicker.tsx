@@ -7,11 +7,11 @@ import {
 } from "@mui/material";
 import { useEffect, useRef, useState } from "react";
 import { MdOutlineLocationOn, MdSwapHoriz, MdTripOrigin } from "react-icons/md";
-import type { AirportResult, SearchData } from "../types";
+import type { AirportResult, SearchFlightOptions } from "../types";
 import { getNearbyAirports, searchAirport } from "../services/AirScraperService";
 
 type Props = {
-  searchData: SearchData;
+  searchData: SearchFlightOptions;
   handleSwapLocations: () => void;
   handleSearchDataChange: (
     key: "destination" | "origin",
@@ -72,7 +72,7 @@ function AirportAutocomplete({
   value: AirportResult | null;
   icon?: React.ReactNode;
   label: string;
-  onChange: (newValue: AirportResult | null) => void;
+  onChange: (newValue: AirportResult) => void;
   showNearbyAirports?: boolean;
 }) {
   const initialRender = useRef(true);
@@ -99,7 +99,7 @@ function AirportAutocomplete({
   return (
     <Autocomplete<AirportResult>
       value={value}
-      onChange={(_e, newValue) => onChange(newValue)}
+      onChange={(_e, newValue) => newValue && onChange(newValue)}
       options={options} // Todo: Inject airports
       getOptionLabel={(option) => (option ? option.presentation.suggestionTitle : "")}
       renderInput={(params) => (
