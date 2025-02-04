@@ -1,4 +1,4 @@
-'use client';
+/*'use client';
 
 import React from 'react';
 import { useSelector } from 'react-redux';
@@ -27,3 +27,4 @@ const FlightResults: React.FC = () => {
 };
 
 export default FlightResults;
+*/

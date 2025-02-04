@@ -1,4 +1,5 @@
 <!-- Improved compatibility of back to top link: See: https://github.com/SedatUygur/flightflex/pull/73 -->
+
 <a id="readme-top"></a>
 
 <!-- PROJECT SHIELDS -->
@@ -9,6 +10,7 @@
 *** for contributors-url, forks-url, etc. This is an optional, concise syntax you may use.
 *** https://www.markdownguide.org/basic-syntax/#reference-style-links
 -->
+
 [![Contributors][contributors-shield]][contributors-url]
 [![Forks][forks-shield]][forks-url]
 [![Stargazers][stars-shield]][stars-url]
@@ -59,9 +61,10 @@
 </details>
 
 <!-- ABOUT THE PROJECT -->
+
 ## About The Project
 
-FlightFlex is a responsive app of Google Flights using Next.js, Redux, Material UI and Sky Scrapper API 
+FlightFlex is a responsive app of Google Flights using Next.js, Redux, Material UI and Sky Scrapper API
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -78,6 +81,7 @@ FlightFlex is a responsive app of Google Flights using Next.js, Redux, Material 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 <!-- GETTING STARTED -->
+
 ## Getting Started
 
 To get a local copy up and running follow these simple steps.
@@ -97,9 +101,11 @@ Install a package manager e.g npm, yarn, pnpm, bun etc.
    ```sh
    npm install
    ```
+
 3. You can follow the contribution guidelines to proceed
 
 <!-- FEATURES -->
+
 ## Features
 
 - [x] Responsive Design
@@ -119,6 +125,7 @@ See the [open issues](https://github.com/SedatUygur/flightflex/issues) for a ful
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 <!-- CONTRIBUTING -->
+
 ## Contributing
 
 You can follow the contribution guidelines(CONTRIBUTION.md) to contribute. We have issue templates for bug and feature requests.
@@ -143,6 +150,7 @@ Don't forget to give the project a star! Thanks again!
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 <!-- LICENSE -->
+
 ## License
 
 Distributed under the MIT License. See `LICENSE.txt` for more information.
@@ -150,6 +158,7 @@ Distributed under the MIT License. See `LICENSE.txt` for more information.
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 <!-- CONTACT -->
+
 ## Contact
 
 Sedat Uygur - [@sedat-can-uygur](https://www.linkedin.com/in/sedat-can-uygur) - sedat.uygur@outlook.com
@@ -159,6 +168,7 @@ Project Link: [https://github.com/SedatUygur/flightflex](https://github.com/Seda
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 <!-- ACKNOWLEDGMENTS -->
+
 ## Acknowledgments
 
 - [Axios](https://axios-http.com/)
@@ -183,6 +193,7 @@ Project Link: [https://github.com/SedatUygur/flightflex](https://github.com/Seda
 
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
+
 [contributors-shield]: https://img.shields.io/github/contributors/SedatUygur/flightflex.svg?style=for-the-badge
 [contributors-url]: https://github.com/SedatUygur/flightflex/graphs/contributors
 [forks-shield]: https://img.shields.io/github/forks/SedatUygur/flightflex.svg?style=for-the-badge
@@ -196,7 +207,6 @@ Project Link: [https://github.com/SedatUygur/flightflex](https://github.com/Seda
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
 [linkedin-url]: https://linkedin.com/in/sedat-can-uygur
 [product-screenshot]: images/screenshot.png
-
 [TypeScript-logo]: https://ms-vscode.gallerycdn.vsassets.io/extensions/ms-vscode/vscode-typescript-next/5.8.20241203/1733271143236/Microsoft.VisualStudio.Services.Icons.Default
 [TypeScript]: https://www.typescriptlang.org/
 [Tailwind-logo]: https://tailwindcss.com/_next/static/media/tailwindcss-logotype.a1069bda.svg
