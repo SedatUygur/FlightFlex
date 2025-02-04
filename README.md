@@ -75,7 +75,6 @@ FlightFlex is a responsive app of Google Flights using Next.js, Redux, Material 
 [![Redux][Redux-logo]][Redux]
 [![MUI][MUI-logo]][MUI]
 [![TypeScript][TypeScript-logo]][TypeScript]
-[![Tailwind][Tailwind-logo]][Tailwind]
 [![JavaScript][JavaScript-logo]][JavaScript]
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
@@ -115,10 +114,10 @@ Install a package manager e.g npm, yarn, pnpm, bun etc.
 - [x] Trip Type Picker
 - [x] List Flights
 - [x] Search Flights
-- [] Filter Flights
-- [] Sort Flights
-- [] Pagination
-- [] Better Caching Strategy
+- [ ] Filter Flights
+- [ ] Sort Flights
+- [ ] Pagination
+- [ ] Better Caching Strategy
 
 See the [open issues](https://github.com/SedatUygur/flightflex/issues) for a full list of proposed features (and known issues).
 
