@@ -1,4 +1,4 @@
-'use client';
+/*'use client';
 
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
@@ -56,3 +56,4 @@ const FlightSearch: React.FC = () => {
 };
 
 export default FlightSearch;
+*/
