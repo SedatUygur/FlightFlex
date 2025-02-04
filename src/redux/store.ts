@@ -1,4 +1,4 @@
-import { configureStore } from '@reduxjs/toolkit';
+/*import { configureStore } from '@reduxjs/toolkit';
 import flightsReducer from './FlightsSlice';
 
 const store = configureStore({
@@ -11,3 +11,4 @@ export type RootState = ReturnType<typeof store.getState>;
 export type AppDispatch = typeof store.dispatch;
 
 export default store;
+*/
