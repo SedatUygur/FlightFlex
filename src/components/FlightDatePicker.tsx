@@ -7,6 +7,15 @@ interface Props extends DatePickerProps<Dayjs> {
   onSelectDate: (value: Dayjs | null) => void;
 }
 
+/**
+ * A component that renders a date picker for selecting flight dates.
+ *
+ * @param {string} label - The label for the date picker input.
+ * @param {Dayjs | null} value - The current selected date value.
+ * @param {(value: Dayjs | null) => void} onSelectDate - Callback function called with the selected date.
+ * @param {Props} props - Additional props that can be passed to the DatePicker component.
+ */
+
 export const FlightDatePicker = ({ label, value, onSelectDate, ...props }: Props) => {
   return (
     <DatePicker

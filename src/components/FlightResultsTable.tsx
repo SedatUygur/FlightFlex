@@ -16,6 +16,18 @@ import { MdFlightLand, MdFlightTakeoff } from 'react-icons/md';
 import type { FlightResult } from '../types';
 import { formatFlightTags } from '../utils/FormatFlightTags';
 
+/**
+ * FlightResultsTable is a React component that takes a FlightResult object as a prop and displays its contents in a table.
+ *
+ * The table displays the following columns:
+ * - Flight: The airline name, logo, and any flight tags (e.g. "Best", "Cheapest", etc.)
+ * - Departure: The departure date and time
+ * - Arrival: The arrival date and time
+ * - Duration: The duration of the flight in hours and minutes
+ * - Price: The price of the flight in the user's selected currency
+ *
+ * The component is designed to be used in conjunction with the SearchFlightOptions component.
+ */
 export const FlightResultsTable = ({ result }: { result: FlightResult }) => {
   return (
     <TableContainer component={Paper} elevation={3}>

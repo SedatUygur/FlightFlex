@@ -17,6 +17,15 @@ const clientV1 = axios.create({
   },
 });
 
+/**
+ * Searches for flights given a set of search criteria.
+ *
+ * @param {SearchFlightOptions} options - Object containing search criteria.
+ * @param {AirportResult} options.origin - The origin airport.
+ * @param {AirportResult} options.destination - The destination airport.
+ * @param {object} [options] - Any additional search criteria.
+ * @returns {Promise<FlightResult[]>} - A promise that resolves to an array of flight results.
+ */
 export async function searchFlights({
   origin,
   destination,
@@ -35,6 +44,13 @@ export async function searchFlights({
   return data.data;
 }
 
+/**
+ * Searches for airports matching a given query string.
+ *
+ * @param {string} query - The search query for airport names or codes.
+ * @returns {Promise<AirportResult[]>} - A promise that resolves to an array of matching airport results.
+ */
+
 export async function searchAirport(query: string) {
   if (!query.trim()) return [];
   const params = { query };
@@ -46,6 +62,12 @@ export async function searchAirport(query: string) {
   return data.data;
 }
 
+/**
+ * Finds nearby airports given a geolocation.
+ *
+ * @param {{ latitude: number, longitude: number }} coordinates - The geolocation coordinates.
+ * @returns {Promise<NearbyAirportsResult>} - A promise that resolves to an array of nearby airports.
+ */
 export async function getNearbyAirports({
   latitude,
   longitude,

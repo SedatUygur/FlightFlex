@@ -56,6 +56,17 @@ const theme = createTheme({
   },
 });
 
+/**
+ * A higher-order component that wraps the entire application in MUI's ThemeProvider
+ * and LocalizationProvider. This component is used to provide a MUI theme and date
+ * adapter to all components in the application.
+ *
+ * @remarks
+ * The theme is set to dark mode.
+ *
+ * @param {React.ReactNode} children - The children components to be rendered with the MUI theme.
+ * @returns {React.ReactElement} - The children components wrapped in the MUI providers.
+ */
 export const MUIProvider = ({ children }: { children: React.ReactNode }) => (
   <LocalizationProvider dateAdapter={AdapterDayjs}>
     <ThemeProvider theme={theme}>{children}</ThemeProvider>

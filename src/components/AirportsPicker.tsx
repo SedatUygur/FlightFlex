@@ -11,6 +11,20 @@ type Props = {
   ) => React.Dispatch<React.SetStateAction<AirportResult | null>>;
 };
 
+/**
+ * AirportsPicker component renders an interface for selecting origin and
+ * destination airports with the ability to swap locations. It utilizes
+ * the AirportAutocomplete component for airport selection.
+ *
+ * Props:
+ * - `searchData`: An object containing the current search data, including
+ *   origin and destination airports.
+ * - `handleSwapLocations`: A callback function to swap the selected origin
+ *   and destination airports.
+ * - `handleSearchDataChange`: A function that returns a dispatch function
+ *   to update the search data for either 'origin' or 'destination'.
+ */
+
 export const AirportsPicker = (props: Props) => {
   const { searchData, handleSwapLocations, handleSearchDataChange } = props;
 

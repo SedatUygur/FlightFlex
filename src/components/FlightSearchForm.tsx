@@ -11,6 +11,18 @@ import { FlightResultsTable } from './FlightResultsTable';
 import PassengerCountPicker from './PassengerCountPicker';
 import { TripTypePicker } from './TripTypePicker';
 
+/**
+ * A form component for searching flights.
+ *
+ * The form includes:
+ *   - A trip type picker (one-way or round-trip)
+ *   - A passenger count picker
+ *   - An airport picker for selecting origin and destination airports
+ *   - One or two date pickers for selecting travel dates (depending on trip type)
+ *   - A search button
+ *
+ * The component also displays a table of search results if the search is successful.
+ */
 export const FlightSearchForm = () => {
   const today = useRef(dayjs());
 

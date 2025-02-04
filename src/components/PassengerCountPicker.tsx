@@ -16,14 +16,41 @@ type Props = {
   setPassengers: React.Dispatch<React.SetStateAction<SearchFlightOptions['passengers']>>;
 };
 
+/**
+ * PassengerCountPicker component renders a clickable TextField that opens a Popover
+ * for selecting the number of passengers for a flight search. It displays the total
+ * number of passengers and supports incrementing and decrementing the number of
+ * adults and children.
+ *
+ * Props:
+ * - `setPassengers`: A dispatch function to update the state of passengers.
+ * - `passengers`: An object with the current number of adults, children and infants.
+ *
+ * The component manages its own state and uses the `useRef` hook to keep track of the
+ * original passenger count, so that it can be restored when the user clicks the
+ * "Cancel" button.
+ */
 const PassengerCountPicker = ({ setPassengers, passengers }: Props) => {
   const originalValue = useRef<typeof passengers | null>(null);
   const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
 
+  /**
+   * Handles the click event for the passenger count input field. It saves the
+   * original passenger count in the `originalValue` ref and sets the anchor for
+   * the Popover to the element that was clicked.
+   */
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
     originalValue.current = passengers;
     setAnchorEl(event.currentTarget);
   };
+
+  /**
+   * Closes the passenger count popover. If the action is a cancel operation and the
+   * original passenger count is available, it restores the count to its original value.
+   * Resets the popover anchor and clears the original value.
+   *
+   * @param {React.MouseEvent<HTMLButtonElement>} e - The click event that triggered the close action.
+   */
 
   const handleClose = (e: React.MouseEvent<HTMLButtonElement>) => {
     if (e.currentTarget.dataset.cancel && originalValue.current) {
@@ -33,6 +60,12 @@ const PassengerCountPicker = ({ setPassengers, passengers }: Props) => {
     originalValue.current = null;
   };
 
+  /**
+   * Increments the count of a specified type of passenger (adults, children, or infants).
+   *
+   * @param {keyof typeof passengers} type - The type of passenger to increment.
+   */
+
   const handleIncrement = (type: keyof typeof passengers) => {
     setPassengers((prev) => ({
       ...prev,
@@ -40,6 +73,13 @@ const PassengerCountPicker = ({ setPassengers, passengers }: Props) => {
     }));
   };
 
+  /**
+   * Decrements the count of a specified type of passenger (adults, children, or infants).
+   * It ensures that the count is not decremented below 0, and also ensures that the count
+   * of adults is not decremented below 1.
+   *
+   * @param {keyof typeof passengers} type - The type of passenger to decrement.
+   */
   const handleDecrement = (type: keyof typeof passengers) => {
     if (passengers[type] > (type === 'adults' ? 1 : 0)) {
       setPassengers((prev) => ({

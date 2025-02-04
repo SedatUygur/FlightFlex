@@ -9,6 +9,22 @@ type Props = {
   onChange: (newValue: AirportResult) => void;
   showNearbyAirports?: boolean;
 };
+/**
+ * AirportAutocomplete component provides an input field with autocomplete
+ * functionality for searching and selecting airports. It supports displaying
+ * nearby airports based on the user's geolocation or input search queries.
+ *
+ * Props:
+ * - `value`: Current selected airport.
+ * - `icon`: Icon to display within the input field.
+ * - `label`: Label for the input field.
+ * - `onChange`: Callback triggered when an airport is selected.
+ * - `showNearbyAirports`: Flag to show nearby airports based on geolocation.
+ *
+ * The component uses a debounced input handler to fetch and display airport
+ * options. It also manages loading state during async operations.
+ */
+
 export const AirportAutocomplete = (props: Props) => {
   const { value, icon, label, onChange, showNearbyAirports } = props;
   const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
@@ -46,6 +62,11 @@ export const AirportAutocomplete = (props: Props) => {
       }
     }, 300);
   }, []);
+  /**
+   * Checks if the input element has a search value and sets the isOpen state accordingly.
+   * This is used to determine whether to show the autocomplete options or not.
+   * @param {React.SyntheticEvent} e - The event emitted when the input element is focused or blurred.
+   */
   function handleShouldOpen(e: React.SyntheticEvent) {
     const hasSearchValue = (e.target as HTMLInputElement).value.trim().length > 0;
     setIsOpen(hasSearchValue);

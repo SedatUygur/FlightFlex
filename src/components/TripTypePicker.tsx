@@ -8,11 +8,26 @@ type Props = {
   setTripType: React.Dispatch<React.SetStateAction<TripType>>;
 };
 
+/**
+ * A component that renders a dropdown menu for selecting a trip type (round trip or one-way).
+ * It uses a MUI TextField with a custom startAdornment that displays a rotating arrow icon
+ * depending on the selected trip type. The component also handles the case where the user
+ * clicks on the select icon, which would normally open the dropdown menu, but in this case
+ * is used to toggle the trip type.
+ *
+ * @param {{ tripType: TripType, setTripType: React.Dispatch<React.SetStateAction<TripType>> }} props
+ * @returns {JSX.Element}
+ */
 export const TripTypePicker = ({ tripType, setTripType }: Props) => {
   const selectRef = useRef<HTMLDivElement | null>(null);
   const textFieldRef = useRef<HTMLInputElement>(null);
   const isRoundTrip = tripType === 'round-trip';
 
+  /**
+   * Handles the case where the user clicks on the select icon, which would normally
+   * open the dropdown menu, but in this case is used to toggle the trip type.
+   * @param {React.SyntheticEvent} e - The event emitted when the user clicks on the select icon.
+   */
   const handleAdornmentClick = (e: React.SyntheticEvent) => {
     const selectTrigger = selectRef.current?.querySelector('.MuiSelect-select');
     if (selectTrigger) {
