@@ -153,7 +153,7 @@ function EnhancedTableHead(props: EnhancedTableProps) {
         {headCells.map((headCell) => (
           <TableCell
             key={headCell.id}
-            align={headCell.numeric ? 'right' : 'left'}
+            align="center"
             padding={headCell.disablePadding ? 'none' : 'normal'}
             sortDirection={orderBy === headCell.id ? order : false}
           >
@@ -361,11 +361,13 @@ export const FlightResultsTable = ({ result }: { result: FlightResult }) => {
     <Box sx={{ width: '100%' }}>
       <Paper sx={{ width: '100%', mb: 2 }}>
         <EnhancedTableToolbar numSelected={selected.length} />
-        <TableContainer component={Paper} elevation={3}>
+        <TableContainer component={Paper} elevation={3} sx={{ maxHeight: 440 }}>
           <Table
-            sx={{ minWidth: 750 }}
+            stickyHeader
+            aria-label="sticky table"
             aria-labelledby="tableTitle"
             size={dense ? 'small' : 'medium'}
+            sx={{ minWidth: 750 }}
           >
             <EnhancedTableHead
               numSelected={selected.length}
