@@ -114,8 +114,8 @@ Install a package manager e.g npm, yarn, pnpm, bun etc.
 - [x] Trip Type Picker
 - [x] List Flights
 - [x] Search Flights
-- [ ] Filter Flights
-- [ ] Sort Flights
+- [x] Filter Flights
+- [x] Sort Flights
 - [ ] Pagination
 - [ ] Better Caching Strategy
 
