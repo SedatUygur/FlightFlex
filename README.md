@@ -108,15 +108,20 @@ Install a package manager e.g npm, yarn, pnpm, bun etc.
 ## Features
 
 - [x] Responsive Design
+- [x] Airports Autocomplete
 - [x] Airports Picker
 - [x] Flight Date Picker
-- [x] Passengers Picker
+- [x] Passenger Count Picker
 - [x] Trip Type Picker
-- [x] List Flights
 - [x] Search Flights
+- [x] List Flights
 - [x] Filter Flights
 - [x] Sort Flights
 - [x] Pagination
+- [x] Sticky Header
+- [ ] Flight Details
+- [ ] Book Flights
+- [ ] Flight Booking Confirmation
 - [ ] Better Caching Strategy
 
 See the [open issues](https://github.com/SedatUygur/flightflex/issues) for a full list of proposed features (and known issues).
