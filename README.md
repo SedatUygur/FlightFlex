@@ -116,7 +116,7 @@ Install a package manager e.g npm, yarn, pnpm, bun etc.
 - [x] Search Flights
 - [x] Filter Flights
 - [x] Sort Flights
-- [ ] Pagination
+- [x] Pagination
 - [ ] Better Caching Strategy
 
 See the [open issues](https://github.com/SedatUygur/flightflex/issues) for a full list of proposed features (and known issues).
